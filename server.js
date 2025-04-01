@@ -4,10 +4,12 @@ import cors from "cors";
 import nodeMailer from "nodemailer";
 
 const app = express();
-app.use(cors({ origin: "https://portfolio-tau-nine-20.vercel.app" }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors({
+    origin: ['https://portfolio-tau-nine-20.vercel.app', 'http://localhost:5173'],
+    methods: ['POST']
+  }));
 
 app.post("/send", async (req, res) => {
     console.log("Received request:", req.body);
