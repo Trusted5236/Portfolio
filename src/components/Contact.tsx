@@ -23,7 +23,7 @@ const Contact = () => {
     message: string;
   }
 
-  const API_URL = "http://localhost:5000/send"
+  const API_URL = "https://portfolio-tau-nine-20.vercel.app/send"
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
