@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex flex-col items-center">
           <div className="flex space-x-6 mb-8">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/Trusted5236"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-purple-400 transition-colors"
@@ -16,7 +16,7 @@ const Footer = () => {
               <Github size={24} />
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/agbata-trust?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-purple-400 transition-colors"
