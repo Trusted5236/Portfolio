@@ -23,7 +23,7 @@ const Contact = () => {
     message: string;
   }
 
-  const API_URL = "https://project-amber-sigma.vercel.app/send"
+  const API_URL = "http://localhost:5000/send"
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
