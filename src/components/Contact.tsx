@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
 const Contact = () => {
@@ -28,6 +28,8 @@ const Contact = () => {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const emailVali = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+
 
   
 
@@ -94,6 +96,20 @@ const Contact = () => {
       setSuccess("");
     },
   });
+
+  useEffect(()=>{
+    let timer: ReturnType<typeof setTimeout>;
+    if(success || error){
+      timer = setTimeout(() => {
+        setSuccess("");
+        setError("");
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+
+  }, [success, error]);
+
+  
 
   return (
     <section id="contact" className="py-20">
@@ -165,7 +181,18 @@ const Contact = () => {
               className={`w-full px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-semibold hover:opacity-90 transition-opacity ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               {loading ? "Sending..." : "Send Message"}
+                 
             </button>
+
+            {success &&(<div>
+              <p className="text-green-500 text-center mt-4">{success}</p>
+            </div>)}
+
+            {error &&(<div>
+              <p className="text-red-500 text-center mt-4">{error}</p>
+            </div>)}
+
+            
           </form>
         </div>
       </div>
