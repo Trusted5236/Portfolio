@@ -1,101 +1,109 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import emailjs from "@emailjs/browser"
+import { useRef } from "react";
 
 const Contact = () => {
   
 
-  const [formData, setFormdata] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  })
+  // const [formData, setFormdata] = useState({
+  //   name: "",
+  //   email: "",
+  //   subject: "",
+  //   message: "",
+  // })
 
-  interface FormData {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-  }
+  // interface FormData {
+  //   name: string;
+  //   email: string;
+  //   subject: string;
+  //   message: string;
+  // }
 
-  interface ApiResponse {
-    success: boolean;
-    message: string;
-  }
+  // interface ApiResponse {
+  //   success: boolean;
+  //   message: string;
+  // }
 
-  const API_URL = "https://project-five-murex.vercel.app/send"
+  // const API_URL = "https://project-five-murex.vercel.app/send"
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const emailVali = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 
 
 
   
 
-  const handleSubmission = (e: React.FormEvent<HTMLFormElement>)=>{
+  const form = useRef<HTMLFormElement>(null);
+
+  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let { name, email, subject, message } = formData;
-    name = name.trim();
-    email = email.trim();
-    subject = subject.trim();
-    message = message.trim();
-    
-    const emailValidation = () =>{
-      if(!email.match(emailVali)){
-        document.getElementById("error")!.innerHTML = "Please enter a valid email address"
-        document.getElementById("error")!.style.color = "red"
-        return false
-      }else{
-      return true
-      }}
-
-      
-      if(emailValidation()){
-        console.log("Form submitted successfully");
-        mutate.mutate(formData);
-      }
-  }
-
-  const mutate = useMutation<ApiResponse, Error, FormData>({
-    mutationFn: async (formData: FormData): Promise<ApiResponse> => {
-      setLoading(true);
-      const response: Response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    setLoading(true);
+    emailjs
+      .sendForm(
+        "service_pzdmdzf", 
+        "template_n0nmhvu", 
+        form.current!, 
+        "kLGWHCEjcBhmwksU-"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          setSuccess("Email sent successfully!");
+          if (form.current) {
+            form.current.reset();
+          }
+          setError("");
         },
-        body: JSON.stringify(formData),
-      });
+        (err) => {
+          setLoading(false);
+          setError("Failed to send email. Please try again.");
+          setSuccess("");
+          console.error("FAILED...", err.text);
+        }
+      );
+      
+  };
+  // const mutate = useMutation<ApiResponse, Error, FormData>({
+  //   mutationFn: async (formData: FormData): Promise<ApiResponse> => {
+  //     setLoading(true);
+  //     const response: Response = await fetch(API_URL, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      if (!response.ok) {
-        setError("Something went wrong");
-        setSuccess("");
-        throw new Error("Something went wrong");
-      }
+  //     if (!response.ok) {
+  //       setError("Something went wrong");
+  //       setSuccess("");
+  //       throw new Error("Something went wrong");
+  //     }
 
-      const data: ApiResponse = await response.json();
-      return data;
-    },
+  //     const data: ApiResponse = await response.json();
+  //     return data;
+  //   },
 
-    onSuccess: (data: ApiResponse): void => {
-      setLoading(false);
-      setSuccess(data.message || "Message sent successfully");
-      setError("");
-      setFormdata({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-    },
+  //   onSuccess: (data: ApiResponse): void => {
+  //     setLoading(false);
+  //     setSuccess(data.message || "Message sent successfully");
+  //     setError("");
+  //     setFormdata({
+  //       name: "",
+  //       email: "",
+  //       subject: "",
+  //       message: "",
+  //     });
+  //   },
 
-    onError: (error: Error): void => {
-      setLoading(false);
-      setError(error.message || "Something went wrong");
-      setSuccess("");
-    },
-  });
+  //   onError: (error: Error): void => {
+  //     setLoading(false);
+  //     setError(error.message || "Something went wrong");
+  //     setSuccess("");
+  //   },
+  // });
 
   useEffect(()=>{
     let timer: ReturnType<typeof setTimeout>;
@@ -120,7 +128,7 @@ const Contact = () => {
           </span>
         </h2>
         <div className="max-w-2xl mx-auto">
-          <form className="space-y-6" onSubmit={handleSubmission}>
+          <form className="space-y-6" onSubmit={sendEmail} ref={form}>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -131,8 +139,9 @@ const Contact = () => {
                   id="name"
                   className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Your name"
-                  onChange={(e) => setFormdata({ ...formData, name: e.target.value })}
-                  value={formData.name}
+                  // onChange={(e) => setFormdata({ ...formData, name: e.target.value })}
+                  // value={formData.name}
+                  name="name"
                 />
               </div>
               <div>
@@ -144,13 +153,14 @@ const Contact = () => {
                   id="email"
                   className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="your.email@example.com"
-                  onChange={(e) => setFormdata({ ...formData, email: e.target.value })}
-                  value={formData.email}
+                  // onChange={(e) => setFormdata({ ...formData, email: e.target.value })}
+                  // value={formData.email}
+                  name="email"
                 />
                 <p id="error"></p>
               </div>
             </div>
-            <div>
+            {/* <div>
               <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
                 Subject
               </label>
@@ -162,7 +172,7 @@ const Contact = () => {
                 onChange={(e) => setFormdata({ ...formData, subject: e.target.value })}
                 value={formData.subject}
               />
-            </div>
+            </div> */}
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                 Message
@@ -172,8 +182,9 @@ const Contact = () => {
                 rows={6}
                 className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 placeholder="Your message here..."
-                onChange={(e) => setFormdata({ ...formData, message: e.target.value })}
-                value={formData.message}
+                // onChange={(e) => setFormdata({ ...formData, message: e.target.value })}
+                // value={formData.message}
+                name="message"
               />
             </div>
             <button
