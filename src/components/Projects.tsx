@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ExternalLink, Github, Palette, Code2 } from 'lucide-react';
 import img1 from '../assets/Public/MacBook Pro 16_ - 6 (1).png';
-import img2 from '../assets/Public/Image2.png';
+import img2 from '../assets/Public/901shots_so.png';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState('frontend');
