@@ -30,7 +30,18 @@ const About = () => {
             <p className="text-xl text-gray-300">
               I believe in the power of clean code, pixel-perfect design, and creating experiences that leave a lasting impression on users.
             </p>
+
+            <div>
+          <a
+              href="https://docs.google.com/document/d/1jOYlB96HAVZxCjzBVFfxe6fd5i_9Bwln7dhbsiSNpik/edit?usp=sharing"
+              className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full font-semibold hover:opacity-90 transition-opacity"
+            >
+              View My CV
+            </a>
           </div>
+          </div>
+
+          
         </div>
       </div>
     </section>

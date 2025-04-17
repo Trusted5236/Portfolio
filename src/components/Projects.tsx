@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ExternalLink, Github, Palette, Code2 } from 'lucide-react';
 import img1 from '../assets/Public/MacBook Pro 16_ - 6 (1).png';
+import img2 from '../assets/Public/Image2.png';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState('frontend');
@@ -8,11 +9,11 @@ const Projects = () => {
   const frontendProjects = [
     {
       title:"Factory Website",
-      description: "A modern e-commerce platform built with React and Next.js, featuring a sleek design and seamless user experience.",
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80",
-      technologies: ["React", "Next.js", "Tailwind CSS", "Redux"],
-      liveLink: "#",
-      githubLink: "#"
+      description: "A modern, responsive website built for a manufacturing company, showcasing their services, vision, and client success through clean design and interactive features.",
+      image: img2,
+      technologies: ["React", "Tailwind CSS", "Redux"],
+      liveLink: "https://factory-6jf4.vercel.app/",
+      githubLink: "https://github.com/Trusted5236/factory.git"
     },
     {
       title: "Pedmonie ",
