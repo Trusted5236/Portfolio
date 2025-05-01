@@ -6,6 +6,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ScrollReaveal from './components/ScrollReaveal';
 
 function App() {
   return (
@@ -38,11 +39,11 @@ function App() {
       </nav>
 
       <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
+       <ScrollReaveal> <Hero /></ScrollReaveal>
+        <ScrollReaveal> <About /></ScrollReaveal> 
+        <ScrollReaveal> <Skills /></ScrollReaveal>
+        <ScrollReaveal> <Projects /></ScrollReaveal>
+        <ScrollReaveal> <Contact /></ScrollReaveal>
       </main>
 
       <Footer />
