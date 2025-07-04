@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ExternalLink, Github, Palette, Code2 } from 'lucide-react';
 import img1 from '../assets/Public/MacBook Pro 16_ - 6 (1).png';
-import img2 from '../assets/Public/901shots_so.png';
+import img2 from '../assets/Public/photo-1496247749665-49cf5b1022e9.avif';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState('frontend');
@@ -28,8 +28,8 @@ const Projects = () => {
       description: "A custom portfolio website showcasing my work and skills, built with modern web technologies.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80",
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
-      liveLink: "#",
-      githubLink: "#"
+      liveLink: "https://portfolio-tau-nine-20.vercel.app/",
+      githubLink: "https://github.com/Trusted5236/Portfolio"
     }
   ];
 
